@@ -1,6 +1,48 @@
 # Server Management Console
 
-A comprehensive, **platform-independent** web-based terminal interface that provides browser-based access to system command prompts with advanced features, multi-tab support, and extensive customization options.
+A comprehensive,### Usage
+
+**🚀 Easy Launchers (Recommended for beginners):**
+
+```cmd
+# Windows - Just double-click or run:
+runmyprogram.bat
+
+# Or in PowerShell:
+.\runmyprogram.ps1
+
+# macOS/Linux:
+chmod +x runmyprogram.sh
+./runmyprogram.sh
+```
+
+**⚡ Traditional Method:**
+
+1. Start the server:
+
+```bash
+npm start
+```
+
+1. Open your web browser and navigate to:
+
+```
+http://localhost:3000
+```
+
+**🔨 Build Executable (Advanced):**
+
+```bash
+# Build for current platform
+npm run build:current
+
+# Build for all platforms  
+npm run build
+
+# Run the executable (after building)
+./dist/server-management-console.exe  # Windows
+./dist/server-management-console      # macOS/Linux
+```ependent** web-based terminal interface that provides browser-based access to system command prompts with advanced features, multi-tab support, and extensive customization options.
 
 ## 🌍 Platform Independence
 
@@ -69,9 +111,56 @@ For development with auto-restart:
 npm run dev
 ```
 
-## 📖 Documentation
+## � Deployment & Distribution
 
-This project includes comprehensive documentation:
+### 🚀 Quick Run (No Installation)
+
+**For end users who just want to run the application:**
+
+- **Windows**: Double-click `runmyprogram.bat`
+- **PowerShell**: Run `.\runmyprogram.ps1`  
+- **macOS/Linux**: Run `./runmyprogram.sh`
+
+These launchers automatically:
+
+- ✅ Check if Node.js is installed
+- ✅ Install dependencies if missing
+- ✅ Start the server
+- ✅ Show helpful status messages
+
+### 🔨 Building Executables
+
+**Create standalone executables that don't require Node.js:**
+
+```bash
+# Install build tools (one time)
+npm install
+
+# Build for your current platform
+npm run build:current
+
+# Build for all platforms (Windows, macOS, Linux)
+npm run build
+
+# Custom build with more control
+node build.js
+```
+
+**Output files in `dist/` folder:**
+
+- `server-console-win.exe` - Windows executable
+- `server-console-mac` - macOS executable  
+- `server-console-linux` - Linux executable
+
+### 📋 Distribution Options
+
+| Method | File Size | Requirements | Best For |
+|--------|-----------|--------------|----------|
+| **Launcher Scripts** | ~50MB | Node.js required | Development, Internal use |
+| **Standalone Executable** | ~80MB | No requirements | Distribution, End users |
+| **Source Code** | ~50MB | Node.js + npm | Developers, Customization |
+
+For detailed build instructions, see [BUILD.md](BUILD.md).
 
 - **[APPLICATION_SUMMARY.md](APPLICATION_SUMMARY.md)** - Complete overview of the entire application
 - **[DOCUMENTATION.md](DOCUMENTATION.md)** - Detailed technical documentation with code examples

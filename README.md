@@ -1,26 +1,45 @@
-# Web Terminal
+# Server Management Console
 
-A comprehensive web interface that provides browser-based access to the Windows PowerShell command prompt with advanced features, multiple viewing modes, and extensive customization options.
+A comprehensive, **platform-independent** web-based terminal interface that provides browser-based access to system command prompts with advanced features, multi-tab support, and extensive customization options.
 
-## 🚀 Features
+## 🌍 Platform Independence
 
-- 🖥️ **Multiple View Modes**: Desktop, Mobile, TV, and Fullscreen interfaces
+**✅ Cross-Platform Support:**
+
+- **🪟 Windows** - PowerShell integration
+- **🍎 macOS** - Zsh/Bash support  
+- **� Linux** - Bash/Shell support
+- **🔄 Auto-Detection** - Automatically detects and adapts to your operating system
+
+## �🚀 Features
+
+- 🖥️ **Multi-Tab Terminals**: Independent terminal sessions with process isolation
+- 🌍 **Platform Independent**: Works on Windows, macOS, and Linux
 - 🎨 **Theme System**: Dark, Light, Matrix, and Retro themes
-- 🎤 **Voice Input**: Speech-to-text command entry
-- 📝 **Auto-complete**: PowerShell command suggestions
-- 💾 **Session Management**: Save/load terminal sessions
-- 🔊 **Audio Feedback**: Sound effects for user actions
-- ⚙️ **Customizable Settings**: Font, size, height, and behavior options
-- 📱 **Mobile Optimized**: Touch-friendly interface for mobile devices
-- 🔒 **Secure**: Input validation and output sanitization
+- 📱 **Responsive Design**: Desktop, Mobile, and Fullscreen view modes
+- 🎤 **Voice Input**: Speech-to-text command entry (Chrome/Edge)
+- 📝 **Smart Auto-complete**: Platform-specific command suggestions
+- 💾 **Session Management**: Save/load terminal sessions and export logs
+- ⚙️ **Customizable Settings**: Font size (10-24px), auto-scroll, sound effects
+- � **Audio Feedback**: Sound effects for user interactions
+- 📊 **System Monitoring**: Platform-aware system info and performance commands
+- 🔒 **Secure**: Input validation, output sanitization, and graceful error handling
 
 ## 📋 Quick Start
+
+### Prerequisites
+
+- **Node.js** (v14 or higher)
+- **Platform-specific shell:**
+  - Windows: PowerShell (pre-installed)
+  - macOS: Zsh or Bash (pre-installed)
+  - Linux: Bash (pre-installed)
 
 ### Installation
 
 1. Ensure you have Node.js installed on your system
-2. Navigate to the project directory
-3. Install dependencies:
+1. Navigate to the project directory
+1. Install dependencies:
 
 ```bash
 npm install
@@ -34,13 +53,13 @@ npm install
 npm start
 ```
 
-2. Open your web browser and navigate to:
+1. Open your web browser and navigate to:
 
-```bash
+```text
 http://localhost:3000
 ```
 
-3. Start executing PowerShell commands through the web interface!
+1. Start executing commands through the web interface!
 
 ### Development
 
@@ -59,32 +78,50 @@ This project includes comprehensive documentation:
 - **[FEATURES.md](FEATURES.md)** - Comprehensive guide to all features and how to use them
 - **[ARCHITECTURE.md](ARCHITECTURE.md)** - Technical architecture and implementation details
 
-## 🎯 Key Features Overview
+## 🎯 Platform-Specific Features
+
+### Windows Features
+
+- **PowerShell Integration**: Full PowerShell command support
+- **System Commands**: `systeminfo`, `tasklist`, `ipconfig`
+- **Path Format**: `C:\Users\username\...`
+- **Performance**: `Get-Process | Sort-Object CPU -Descending`
+
+### macOS Features  
+
+- **Zsh/Bash Support**: Native shell integration
+- **System Commands**: `system_profiler`, `top`, `ifconfig`
+- **Path Format**: `/Users/username/...`
+- **Performance**: `top -l 1 -n 10 -o cpu`
+
+### Linux Features
+
+- **Bash Integration**: Standard Linux shell
+- **System Commands**: `uname -a`, `ps aux`, `free -h`
+- **Path Format**: `/home/username/...`
+- **Performance**: `ps aux --sort=-%cpu`
+
+## 🎨 Themes & Customization
+
+### Available Themes
+
+- **🌙 Dark**: Classic terminal appearance (default)
+- **☀️ Light**: Clean professional interface  
+- **💚 Matrix**: Green-on-black hacker aesthetic
+- **🕹️ Retro**: 80s cyberpunk styling
 
 ### View Modes
 
-- **Desktop**: Standard computer interface
-- **Mobile**: Touch-optimized for phones/tablets  
-- **TV**: Large screen with enhanced visuals
-- **Fullscreen**: Immersive browser experience
+- **🖥️ Desktop**: Standard computer interface
+- **📱 Mobile**: Touch-optimized for phones/tablets
+- **⛶ Fullscreen**: Immersive browser experience
 
-### Themes
+### Settings
 
-- **Dark**: Classic terminal appearance (default)
-- **Light**: Clean professional interface
-- **Matrix**: Green-on-black hacker aesthetic  
-- **Retro**: 80s cyberpunk styling
-
-### Advanced Capabilities
-
-- Real-time command execution via WebSocket
-- Voice recognition for hands-free input
-- Command history with arrow key navigation
-- Auto-completion for PowerShell commands
-- Session save/load functionality
-- Terminal output export
-- Customizable fonts and sizing
-- Audio feedback system
+- **Font Size**: 10px to 24px with real-time preview
+- **Auto Scroll**: Automatic terminal scrolling
+- **Sound Effects**: Audio feedback for interactions
+- **Command History**: Configurable history size (10-1000 commands)
 
 ## ⌨️ Keyboard Shortcuts
 
@@ -94,78 +131,145 @@ This project includes comprehensive documentation:
 | `↑/↓` | Navigate command history |
 | `Tab` | Show command suggestions |
 | `Ctrl+L` | Clear terminal |
-| `Ctrl+S` | Save session |
-| `Ctrl+O` | Load session |
-| `F11` | Toggle fullscreen |
+| `Ctrl+T` | New tab |
+| `Ctrl+W` | Close tab (except main) |
 
-## 🛡️ Security Warning
+## 🛡️ Security & Best Practices
 
-⚠️ **IMPORTANT**: This application provides direct access to your system's command prompt through a web interface.
+⚠️ **IMPORTANT**: This application provides direct access to your system's command line through a web interface.
+
+**Security Guidelines:**
 
 - Only run this on trusted networks
 - Do not expose this server to the internet
 - Be careful with the commands you execute
 - Use only for development and testing purposes
+- Each tab runs in isolated processes for better security
 
-## 🔧 How it Works
+## 🔧 Technical Architecture
 
-- **Backend**: Node.js server with Express.js and Socket.IO
-- **Frontend**: HTML/CSS/JavaScript with real-time WebSocket communication
-- **Terminal**: Spawns individual PowerShell processes for each client connection
-- **Communication**: Bidirectional real-time communication using WebSockets
+**Backend Technology:**
 
-## 📱 Platform Support
+- **Node.js** server with Express.js framework
+- **Socket.IO** for real-time WebSocket communication
+- **Platform Detection** using Node.js `os.platform()`
+- **Process Spawning** with isolated shell processes per tab
 
-### Browser Compatibility
+**Frontend Technology:**
+
+- **HTML5/CSS3/JavaScript** with responsive design
+- **WebSocket Client** for real-time communication
+- **Local Storage** for settings persistence
+- **Web Speech API** for voice input (Chrome/Edge)
+
+**Communication Flow:**
+
+1. Browser connects via WebSocket
+1. Server detects platform and spawns appropriate shell
+1. Commands sent in real-time to isolated shell processes
+1. Output streamed back to browser with syntax highlighting
+
+## 📱 Browser & Platform Compatibility
+
+### Browser Support
 
 | Feature | Chrome | Firefox | Safari | Edge |
 |---------|--------|---------|--------|------|
 | Core Terminal | ✅ | ✅ | ✅ | ✅ |
+| Multi-Tab Support | ✅ | ✅ | ✅ | ✅ |
 | Voice Input | ✅ | ❌ | ❌ | ✅ |
 | Audio Effects | ✅ | ✅ | ✅ | ✅ |
 | All Themes | ✅ | ✅ | ✅ | ✅ |
+| Font Size Control | ✅ | ✅ | ✅ | ✅ |
+
+### Operating System Support
+
+| OS | Shell | Status | Notes |
+|----|-------|--------|-------|
+| Windows 10/11 | PowerShell | ✅ Full Support | Native integration |
+| macOS | Zsh/Bash | ✅ Full Support | Auto-detects default shell |
+| Linux (Ubuntu/Debian) | Bash | ✅ Full Support | Standard shell support |
+| Linux (Other) | Bash/sh | ✅ Compatible | May require shell config |
 
 ### Device Support
 
-- **Desktop/Laptop**: Full feature set
-- **Mobile Devices**: Touch-optimized interface
-- **Tablets**: Responsive design
-- **TV Displays**: Enhanced visual mode
+- **💻 Desktop/Laptop**: Full feature set with all keyboard shortcuts
+- **📱 Mobile Devices**: Touch-optimized interface, virtual keyboard friendly
+- **📟 Tablets**: Responsive design adapts to screen size
+- **🖥️ Large Displays**: Enhanced visual mode for presentations
 
-## 🎮 Example Commands
+## 🎮 Platform-Specific Command Examples
 
-Since this uses PowerShell as the backend, you can execute any PowerShell command:
+### Windows (PowerShell)
 
 ```powershell
-# File operations
-dir
-Get-ChildItem
-cd C:\Users
-
-# System information  
-Get-Process
-Get-Service
+# System information
+Get-ComputerInfo
 systeminfo
+
+# Process management
+Get-Process | Sort-Object CPU -Descending
+tasklist /svc
+
+# Network operations
+Test-Connection google.com
+ipconfig /all
+
+# File operations
+Get-ChildItem -Recurse *.txt
+dir C:\ /s
+```
+
+### macOS (Zsh/Bash)
+
+```bash
+# System information
+system_profiler SPSoftwareDataType
+uname -a
+
+# Process management
+top -l 1 -n 10 -o cpu
+ps aux | head -10
 
 # Network operations
 ping google.com
-ipconfig
-Test-Connection
+ifconfig
 
-# PowerShell specific
-Get-Help Get-Process
-Get-Command *service*
+# File operations
+find . -name "*.txt"
+ls -la ~/Documents
+```
+
+### Linux (Bash)
+
+```bash
+# System information
+uname -a
+lsb_release -a
+free -h
+
+# Process management
+ps aux --sort=-%cpu | head -10
+htop
+
+# Network operations
+ping google.com
+ip addr show
+
+# File operations
+find /home -name "*.txt"
+ls -la /var/log
 ```
 
 ## 🏗️ Project Structure
 
-```
-├── server.js              # Node.js backend server
-├── package.json           # Project dependencies
+```text
+├── server.js              # Node.js backend server (platform-independent)
+├── package.json           # Project dependencies and scripts
 ├── public/
 │   ├── index.html         # Main web interface
 │   ├── styles.css         # CSS styling and themes
-│   └── script.js          # Client-side JavaScript
+│   └── script.js          # Client-side JavaScript (platform-aware)
 ├── README.md              # This file
 ├── DOCUMENTATION.md       # Technical documentation
 ├── FEATURES.md            # Feature guide
@@ -175,36 +279,46 @@ Get-Command *service*
 
 ## 🚧 Troubleshooting
 
-### Common Issues
-
-**Connection Failed**
+### Connection Failed
 
 - Ensure server is running (`npm start`)
 - Check if port 3000 is available
 - Verify firewall settings
+- Try accessing via `127.0.0.1:3000` instead of `localhost:3000`
 
-**Voice Input Not Working**
+### Voice Input Not Working
 
-- Use Chrome or Edge browser
-- Allow microphone permissions
-- Check microphone hardware
+- Use Chrome or Edge browser (Firefox/Safari don't support Web Speech API)
+- Allow microphone permissions when prompted
+- Check microphone hardware and system settings
+- Ensure HTTPS for production deployments (required for microphone access)
 
-**Commands Not Executing**
+### Commands Not Executing
 
-- Verify PowerShell is installed
-- Check PowerShell execution policy
-- Try simpler commands first
+- Verify appropriate shell is installed and accessible
+- Check shell execution policy (Windows: `Set-ExecutionPolicy RemoteSigned`)
+- Try simpler commands first (`ls`, `dir`, `pwd`)
+- Check terminal output for error messages
+
+### Platform Detection Issues
+
+- Server automatically detects platform on startup
+- Check server console for platform detection messages
+- Restart server if platform detection seems incorrect
+- Manual shell configuration available in server.js if needed
 
 For detailed troubleshooting, see [FEATURES.md](FEATURES.md#troubleshooting-guide).
 
 ## 🔮 Future Enhancements
 
-- Multiple terminal tabs
-- File upload/download
-- Syntax highlighting  
-- User authentication
-- Remote server connections
-- Plugin system
+- **🔐 User Authentication**: Multi-user support with role-based access
+- **📁 File Manager**: Integrated file upload/download interface
+- **🎨 Syntax Highlighting**: Enhanced command and output formatting
+- **🌐 Remote Connections**: SSH and remote server integration
+- **🔌 Plugin System**: Extensible architecture for custom features
+- **📊 Advanced Monitoring**: Real-time system metrics dashboard
+- **🔍 Search & Filter**: Terminal output search and filtering
+- **📱 Mobile App**: Native mobile applications for iOS/Android
 
 ## 📄 License
 
@@ -214,6 +328,16 @@ MIT License - Feel free to use and modify for your projects.
 
 Contributions are welcome! Please refer to the documentation files for technical details and architecture information.
 
+**Development Guidelines:**
+
+- Follow existing code style and patterns
+- Test on multiple platforms when possible
+- Update documentation for new features
+- Ensure backward compatibility
+- Add appropriate error handling
+
 ---
 
-**Note**: This is a powerful tool that provides direct system access. Please use responsibly and follow security best practices.
+**⚠️ Important Note**: This is a powerful tool that provides direct system access through a web interface. Please use responsibly and follow security best practices. Always test in a safe environment before deploying.
+
+**🌟 Star this project** if you find it useful, and feel free to contribute improvements!

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server Management Console</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🖥️</text></svg>">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <div class="app-logo">
+                    <span class="logo-icon">🖥️</span>
+                    <div class="app-info">
+                        <h1>Server Management Console</h1>
+                        <span class="app-subtitle">Remote Terminal Access</span>
+                    </div>
+                </div>
+                <div class="server-info">
+                    <div class="server-details">
+                        <span class="server-name">localhost</span>
+                        <span class="server-type">Multi-Platform Server</span>
+                    </div>
+                    <div class="connection-status">
+                        <span id="status" class="status status-disconnected">Disconnected</span>
+                    </div>
+                </div>
+            </div>
+            <div class="header-controls">
+                <div class="view-selector">
+                    <label for="viewMode">View:</label>
+                    <select id="viewMode">
+                        <option value="desktop">🖥️ Desktop</option>
+                        <option value="mobile">📱 Mobile</option>
+                        <option value="fullscreen">⛶ Fullscreen</option>
+                    </select>
+                </div>
+                <div class="theme-selector">
+                    <label for="themeMode">Theme:</label>
+                    <select id="themeMode">
+                        <option value="dark">🌙 Dark</option>
+                        <option value="light">☀️ Light</option>
+                        <option value="matrix">💚 Matrix</option>
+                        <option value="retro">🕹️ Retro</option>
+                    </select>
+                </div>
+                <div class="header-actions">
+                    <button class="action-btn" title="System Information" onclick="getSystemInfo()">ℹ️</button>
+                    <button class="action-btn" title="Performance Monitor" onclick="getPerformanceInfo()">📊</button>
+                    <button class="settings-btn" onclick="openSettings()" title="Settings">⚙️</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Terminal Container -->
+        <main class="terminal-container">
+            <!-- Terminal Tabs -->
+            <div class="terminal-tabs">
+                <div class="tab active" data-tab="main" onclick="switchToTab('main')">
+                    <span class="tab-title">Main Terminal</span>
+                    <span class="tab-close" onclick="event.stopPropagation(); closeTab('main')">&times;</span>
+                </div>
+                <button class="tab-add" onclick="addNewTab()" title="New Tab">+</button>
+            </div>
+
+            <!-- Terminal Header Info -->
+            <div class="terminal-header">
+                <div class="terminal-info">
+                    <span id="currentPath">C:\</span>
+                    <span id="currentTime"></span>
+                </div>
+                <div class="terminal-stats">
+                    <span id="tabCount">1 tab</span>
+                </div>
+            </div>
+
+            <!-- Terminal Output -->
+            <div id="terminal" class="terminal-output"></div>
+
+            <!-- Input Container -->
+            <div class="input-container">
+                <input 
+                    type="text" 
+                    id="commandInput" 
+                    placeholder="Enter command..." 
+                    autocomplete="off"
+                    spellcheck="false"
+                >
+                <div class="input-actions">
+                    <button id="sendBtn" class="btn primary" title="Send Command">Send</button>
+                    <button id="clearBtn" class="btn secondary" title="Clear Terminal">Clear</button>
+                    <button id="voiceBtn" class="btn secondary" title="Voice Input">🎤</button>
+                </div>
+            </div>
+
+            <!-- Command Suggestions -->
+            <div id="suggestions" class="suggestions hidden"></div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-info">
+                <span>Server Management Console v2.0</span>
+                <span id="connectionTime">Not connected</span>
+            </div>
+            <div class="footer-actions">
+                <button id="exportBtn" class="btn-small" title="Export Log">📄</button>
+                <button id="saveBtn" class="btn-small" title="Save Session">💾</button>
+                <button id="loadBtn" class="btn-small" title="Load Session">📂</button>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Settings</h2>
+                <span class="close" onclick="closeSettings()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="setting-group">
+                    <label for="fontSize">Font Size:</label>
+                    <input type="range" id="fontSize" min="10" max="24" value="13" step="1">
+                    <span id="fontSizeValue">13px</span>
+                </div>
+                <div class="setting-group">
+                    <label for="autoScroll">Auto Scroll:</label>
+                    <input type="checkbox" id="autoScroll" checked>
+                    <span>Automatically scroll to bottom</span>
+                </div>
+                <div class="setting-group">
+                    <label for="soundEnabled">Sound Effects:</label>
+                    <input type="checkbox" id="soundEnabled" checked>
+                    <span>Enable notification sounds</span>
+                </div>
+                <div class="setting-group">
+                    <label for="maxHistory">Max History:</label>
+                    <input type="number" id="maxHistory" min="10" max="1000" value="100">
+                    <span>commands</span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn primary" onclick="saveSettings()">Save</button>
+                <button class="btn secondary" onclick="closeSettings()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

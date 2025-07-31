@@ -14,13 +14,19 @@
     "build:win": "pkg . --targets node18-win-x64 --out-path dist/",
     "build:mac": "pkg . --targets node18-macos-x64 --out-path dist/",
     "build:linux": "pkg . --targets node18-linux-x64 --out-path dist/",
-    "build:current": "pkg . --targets node18-win-x64 --out-path dist/",
+    "build:arm": "pkg . --targets node18-linux-arm64,node18-linux-armv7 --out-path dist/",
+    "build:arm-nexe": "nexe server.js --targets linux-arm64-18.0.0,linux-armv7-18.0.0 --output dist/server-console-arm",
     "build:nexe": "nexe server.js -o dist/server-console.exe",
     "postinstall": "echo 'Installation complete! Run npm run build to create executables.'"
   },
   "pkg": {
-    "scripts": ["server.js"],
-    "assets": ["public/**/*", "node_modules/**/*"],
+    "scripts": [
+      "server.js"
+    ],
+    "assets": [
+      "public/**/*",
+      "node_modules/**/*"
+    ],
     "outputPath": "dist/"
   },
   "dependencies": {
@@ -33,7 +39,14 @@
     "pkg": "^5.8.1",
     "nexe": "^4.0.0-rc.2"
   },
-  "keywords": ["web", "terminal", "command", "interface", "platform-independent", "executable"],
+  "keywords": [
+    "web",
+    "terminal",
+    "command",
+    "interface",
+    "platform-independent",
+    "executable"
+  ],
   "author": "Your Name",
   "license": "MIT",
   "engines": {
